@@ -22,8 +22,7 @@ void insertFront(Stock stk){
     currentSize++;
 }
 
-void printList(){
-    Node* temp = head;
+void printList(Node* temp){
     int count = 1;
     while (temp != NULL){
         cout << count << ") " << temp->current << endl;
@@ -52,18 +51,33 @@ Node* findMiddle(){
     return slow;
 }
 
+void splitHalfList(Node* head){
+//    find middle
+//    assign middlehead = middle.next
+//    middlehead.next = null
+
+    Node* middle = findMiddle();
+    Node* middleHead = middle->next;
+    middle->next = NULL; // cuts the list
+
+    printList(head);
+    printList(middleHead);
+
+}
+
 int main() {
 
     srand(time(NULL)); // initialize the random seed
 
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 9; ++i) {
         // generate random numbers for shares and cost
         int randomCost = rand() % 100 + 1;
         int randomShares = rand() % 100 + 1;
         Stock s1("A" + to_string(i + 1), randomCost, randomShares);
         insertFront(s1);
     }
-    printList();
-    cout << findMiddle()->current;
+    //printList(head);
+    splitHalfList(head);
+    //cout << findMiddle()->current;
     return 0;
 }
