@@ -39,13 +39,12 @@ Node* findMiddle(){
     Node* fast = head;
     while (fast->next != NULL){
         if (slow == NULL){
-            // it should not happen
-            exit(1);
+            exit(1); // it should not happen
         }
         fast = fast->next;
-        slow = slow->next;
         if (fast->next != NULL){
             fast = fast->next;
+            slow = slow->next;
         }
     }
     return slow;
@@ -69,7 +68,7 @@ int main() {
 
     srand(time(NULL)); // initialize the random seed
 
-    for (int i = 0; i < 9; ++i) {
+    for (int i = 0; i < 10; ++i) {
         // generate random numbers for shares and cost
         int randomCost = rand() % 100 + 1;
         int randomShares = rand() % 100 + 1;
