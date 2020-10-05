@@ -75,8 +75,6 @@ int main() {
         Stock s1("A" + to_string(i + 1), randomCost, randomShares);
         insertFront(s1);
     }
-    //printList(head);
     splitHalfList(head);
-    //cout << findMiddle()->current;
     return 0;
 }
