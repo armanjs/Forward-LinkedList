@@ -50,7 +50,7 @@ Node* findMiddle(){
     return slow;
 }
 
-void splitHalfList(Node* head){
+Node* splitHalfList(Node* head){
 //    find middle
 //    assign middlehead = middle.next
 //    middlehead.next = null
@@ -58,9 +58,10 @@ void splitHalfList(Node* head){
     Node* middle = findMiddle();
     Node* middleHead = middle->next;
     middle->next = NULL; // cuts the list
+    return middleHead;
 
-    printList(head);
-    printList(middleHead);
+    //printList(head);
+    //printList(middleHead);
 
 }
 
@@ -68,13 +69,23 @@ int main() {
 
     srand(time(NULL)); // initialize the random seed
 
-    for (int i = 0; i < 10; ++i) {
+    int nStocks;
+    cout << "Enter the numbers of random stocks you wish to generate: ";
+    cin >> nStocks;
+
+    for (int i = 0; i < nStocks; ++i) {
         // generate random numbers for shares and cost
         int randomCost = rand() % 100 + 1;
         int randomShares = rand() % 100 + 1;
         Stock s1("A" + to_string(i + 1), randomCost, randomShares);
         insertFront(s1);
     }
-    splitHalfList(head);
+    cout << "The following is the complete list:" << endl;
+    printList(head);
+    cout << endl << "The following is the first half:" << endl;
+    printList(splitHalfList(head));
+    cout << endl << "The following is the second half:" << endl;
+    printList(head);
+
     return 0;
 }
