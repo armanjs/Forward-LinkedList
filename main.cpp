@@ -2,6 +2,13 @@
 #include "Stock.h"
 #include "Node.h"
 
+// ===========================
+// Forward Linked List of stock objects, project 3
+// CMPE 126, section 6
+// Arman Sadeghi
+// October 7, 2020
+// ===========================
+
 Node* head = NULL;
 Node* tail = NULL;
 int currentSize = 0;
@@ -41,19 +48,20 @@ Node* findMiddle(){
         if (slow == NULL){
             exit(1); // it should not happen
         }
+        // move to the next node
         fast = fast->next;
         if (fast->next != NULL){
             fast = fast->next;
             slow = slow->next;
         }
     }
-    return slow;
+    return slow; // return middle
 }
 
 Node* splitHalfList(Node* head){
 //    find middle
-//    assign middlehead = middle.next
-//    middlehead.next = null
+//    assign middleHead = middle.next
+//    middleHead.next = null
 
     Node* middle = findMiddle();
     Node* middleHead = middle->next;
@@ -62,7 +70,6 @@ Node* splitHalfList(Node* head){
 
     //printList(head);
     //printList(middleHead);
-
 }
 
 int main() {
