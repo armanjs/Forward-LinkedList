@@ -70,7 +70,7 @@ Node* findMiddle(){
              slow = slow->next;
          }*/
     }
-    cout << "This is the middle: " << slow->current << "At index: " << counter << endl;
+    //cout << "This is the middle: " << slow->current << "At index: " << counter << endl;
     return slow; // return middle
 }
 
@@ -173,7 +173,7 @@ Node* removeLast(){
 void printList(Node* temp){
     int count = 1;
     while (temp != NULL){
-        cout << count << ") " << temp->current << endl;
+        cout << count << ") " << temp->current << endl << endl;
         temp = temp->next;
         count++;
     }
@@ -184,7 +184,7 @@ void printList(Node* temp){
 
 void printReverse(Node* temp){
     while (temp != NULL){
-        cout << temp->current << endl;
+        cout << temp->current << endl << endl;
         temp = temp->prev;
     }
     if (currentSize == 0){
@@ -221,14 +221,71 @@ int main() {
         Stock s1("A" + to_string(i + 1), randomCost, randomShares);
         insertFront(s1);
     }
-    Stock s2("B");
-    cout << "The following is the complete list:" << endl;
-    //insertLast(s2);
-    //insertMiddle(s2);
-    printList(head);
-    printReverse(tail);
-    //splitHalfList(head);
 
+    cout << endl << "The following is the complete list of randomly generated stocks:" << endl << endl;
+    printList(head);
+
+    int selection = 0;
+    cout << "Enter a (1) for insertFront, (2) for removeFront"
+            ", (3) for insertMiddle, (4) for removeMiddle, \n"
+            "(5) for insertEnd, (6) for removeEnd, "
+            "(7) for printList, (8) for printReverse and (-1) to quit: ";
+    cin >> selection;
+
+
+    while (selection != -1){
+
+        if (selection == 1){
+            string symbol;
+            int cost = 0, shares = 0;
+            cout << "What stock do u wish to insertFront? Please enter symbol, cost and share "
+                    "separated by spaces: ";
+            cin >> symbol >> cost >> shares;
+            Stock stock(symbol, cost, shares);
+            insertFront(stock);
+            cout << "(" << stock << ")" << " Has been added to your list" << endl;
+        }
+        else if (selection == 2) {
+            cout << "(" << removeFront()->current << ")" <<
+            " has been removed from the front of the list" << endl;
+        }
+        else if (selection == 3){
+            string symbol;
+            int cost = 0, shares = 0;
+            cout << "What stock do u wish to insertMiddle? Please enter symbol, cost and share "
+                    "separated by spaces: ";
+            cin >> symbol >> cost >> shares;
+            Stock stock(symbol, cost, shares);
+            insertMiddle(stock);
+            cout << "(" << stock << ")" << " Has been added to your list" << endl;
+        }
+        else if (selection == 4){
+            cout << "(" << removeMiddle()->current << ")" <<
+            " has been removed from the middle of the list" << endl;
+        }
+        else if (selection == 5){
+            string symbol;
+            int cost = 0, shares = 0;
+            cout << "What stock do u wish to insertLast? Please enter symbol, cost and share "
+                    "separated by spaces: ";
+            cin >> symbol >> cost >> shares;
+            Stock stock(symbol, cost, shares);
+            insertLast(stock);
+            cout << "(" << stock << ")" << " Has been added to your list" << endl;
+        }
+        else if (selection == 6){
+            cout << "(" << removeLast()->current << ")" <<
+                 " has been removed from the end of the list" << endl;
+        }
+        else if (selection == 7){
+            printList(head);
+        }
+        else if (selection == 8){
+            printReverse(tail);
+        }
+        cout << "Enter a number from (1-8), enter -1 to quit: ";
+        cin >> selection;
+    }
 
     return 0;
 }

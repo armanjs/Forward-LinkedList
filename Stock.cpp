@@ -7,7 +7,7 @@
 using namespace std;
 
 ostream &operator << (ostream& output, const Stock& stk){
-    output << stk.shares << " share(s) of " << stk.symbol  << " at $" << stk.cost << endl;
+    output << stk.shares << " share(s) of " << stk.symbol  << " at $" << stk.cost;
     return output;
 }
 
