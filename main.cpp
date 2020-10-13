@@ -34,6 +34,23 @@ void insertFront(Stock stk){
     }
 }
 
+Node* removeFront(){
+    if (currentSize == 0){
+        return NULL;
+    }
+    else {
+        // set the temp to head
+        Node* temp = head;
+        // point the head to its next node
+        head = head->next;
+        currentSize--;
+        if (head == NULL){
+            tail = NULL;
+        }
+        return temp;
+    }
+}
+
 void printList(Node* temp){
     int count = 1;
     while (temp != NULL){
@@ -139,8 +156,11 @@ int main() {
     }
     Stock s2("B");
     cout << "The following is the complete list:" << endl;
-    insertLast(s2);
-    insertMiddle(s2);
+    //insertLast(s2);
+    //insertMiddle(s2);
+    printList(head);
+    removeFront();
+    cout << "Front removed" << endl;
     printList(head);
     //splitHalfList(head);
 
