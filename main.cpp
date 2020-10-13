@@ -54,18 +54,6 @@ Node* removeFront(){
     }
 }
 
-void printList(Node* temp){
-    int count = 1;
-    while (temp != NULL){
-        cout << count << ") " << temp->current << endl;
-        temp = temp->next;
-        count++;
-    }
-    if (currentSize == 0){
-        cout << "List is empty." << endl;
-    }
-}
-
 Node* findMiddle(){
     int counter = 1;
     Node* slow = head;
@@ -107,7 +95,29 @@ void insertMiddle(Stock stk){
 }
 
 Node* removeMiddle(){
-
+    // if the list is empty
+    if (currentSize == 0){
+        return NULL;
+    }
+    // if there's only one element
+    else if (currentSize == 1){
+        return removeFront();
+    }
+    // if currentSize > 1
+    else {
+        // point the middle node to the middle of the list
+        Node* middle = findMiddle();
+        // point previous to the node before middle
+        Node* previousNode = middle->prev;
+        // point next to the node after the middle
+        Node* nextNode = middle->next;
+        // delete the middle node
+        previousNode->next = nextNode;
+        nextNode->prev = previousNode;
+        // decrement the size
+        currentSize--;
+        return middle;
+    }
 }
 
 void insertLast(Stock stk){
@@ -144,25 +154,40 @@ Node* removeLast(){
         return temp;
     }
     else { // currentSize > 1
+        // set the current node to head
         Node* current = head;
+        // traverse through the list till we reach our desired node
         for (int i = 0; i < currentSize - 2; ++i) {
             current = current->next;
         }
         Node* temp = tail;
         tail = current;
+        // delete the last node
         tail->next = NULL;
+        // decrement the size of the list
         currentSize--;
         return temp;
-        }
     }
+}
+
+void printList(Node* temp){
+    int count = 1;
+    while (temp != NULL){
+        cout << count << ") " << temp->current << endl;
+        temp = temp->next;
+        count++;
+    }
+    if (currentSize == 0){
+        cout << "List is empty." << endl;
+    }
+}
 
 void splitHalfList(Node* head){
-//    find middle
-//    assign middleHead = middle.next
-//    middleHead.next = null
-
+    // find middle
     Node* middle = findMiddle();
+    // assign middleHead = middle.next
     Node* middleHead = middle->next;
+    // middleHead.next = null
     middle->next = NULL; // cuts the list
 
     cout << endl << "The following is the first half:" << endl;
@@ -191,8 +216,8 @@ int main() {
     //insertLast(s2);
     //insertMiddle(s2);
     printList(head);
-    removeLast();
-    cout << "End removed" << endl;
+    removeMiddle();
+    cout << "Middle removed" << endl;
     printList(head);
     //splitHalfList(head);
 
