@@ -182,6 +182,16 @@ void printList(Node* temp){
     }
 }
 
+void printReverse(Node* temp){
+    while (temp != NULL){
+        cout << temp->current << endl;
+        temp = temp->prev;
+    }
+    if (currentSize == 0){
+        cout << "List is empty." << endl;
+    }
+}
+
 void splitHalfList(Node* head){
     // find middle
     Node* middle = findMiddle();
@@ -216,9 +226,7 @@ int main() {
     //insertLast(s2);
     //insertMiddle(s2);
     printList(head);
-    removeMiddle();
-    cout << "Middle removed" << endl;
-    printList(head);
+    printReverse(tail);
     //splitHalfList(head);
 
 
