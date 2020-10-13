@@ -15,6 +15,7 @@ public:
     Node(Stock);
     Stock current;
     Node* next;
+    Node* prev;
 };
 
 #endif //LINKEDLIST_NODE_H

@@ -18,15 +18,20 @@ void insertFront(Stock stk){
     Node* newNode = new Node;
     // set the current node to stock
     newNode->current = stk;
-    if (currentSize == 0){
-        head = newNode;
-        head->next = tail;
-    }
-    else {
-        newNode->next = head; // insert at the front
-        head = newNode;
-    }
+    // link the newNode with the head
+    newNode->next = head;
+    // now head points to newNode
+    head = newNode;
+    // increase list size
     currentSize++;
+    // if the new node is the only node in the list
+    if (tail == NULL){
+        tail = head;
+    }
+    // update the head previous
+    if (head != tail){
+        head->next->prev = head;
+    }
 }
 
 void printList(Node* temp){
@@ -42,23 +47,67 @@ void printList(Node* temp){
 }
 
 Node* findMiddle(){
+    int counter = 1;
     Node* slow = head;
     Node* fast = head;
-    while (fast->next != NULL){
-        if (slow == NULL){
-            exit(1); // it should not happen
-        }
+    while (fast->next != NULL && fast->next->next != NULL){
+        fast = fast->next->next;
+        slow = slow->next;
+        counter++;
+
         // move to the next node
-        fast = fast->next;
-        if (fast->next != NULL){
-            fast = fast->next;
-            slow = slow->next;
-        }
+        /* fast = fast->next;
+         if (fast->next != NULL){
+             fast = fast->next;
+             slow = slow->next;
+         }*/
     }
+    cout << "This is the middle: " << slow->current << "At index: " << counter << endl;
     return slow; // return middle
 }
 
-Node* splitHalfList(Node* head){
+void insertMiddle(Stock stk){
+    // create a new node to be inserted
+    Node* newNode = new Node;
+    // set the current to stk
+    newNode->current = stk;
+    // find the middle of the list
+    Node* middle = findMiddle();
+    // create a temp node to save the link
+    Node* temp = middle->next;
+    // link the middle node to the new node
+    middle->next = newNode;
+    // link the middle with the rest of the list
+    middle->next->next = temp;
+    // increment the size
+    currentSize++;
+    // link the previous
+    temp->prev = middle->next;
+    middle->next->prev = middle;
+}
+
+void insertLast(Stock stk){
+    // create a new node
+    Node* newNode = new Node;
+    newNode->current = stk;
+    // create a temp and set it to tail
+    Node* temp = tail;
+    // if the only one in the list
+    if (tail == NULL){
+        head = tail = newNode;
+    }
+    else {
+        // link the new node with the last node
+        tail->next = newNode;
+        // point tail to the last node
+        tail = tail->next;
+    }
+    currentSize++;
+    // link the previous
+    tail->prev = temp;
+}
+
+void splitHalfList(Node* head){
 //    find middle
 //    assign middleHead = middle.next
 //    middleHead.next = null
@@ -66,10 +115,11 @@ Node* splitHalfList(Node* head){
     Node* middle = findMiddle();
     Node* middleHead = middle->next;
     middle->next = NULL; // cuts the list
-    return middleHead;
 
-    //printList(head);
-    //printList(middleHead);
+    cout << endl << "The following is the first half:" << endl;
+    printList(head);
+    cout << endl << "The following is the second half:" << endl;
+    printList(middleHead);
 }
 
 int main() {
@@ -87,12 +137,13 @@ int main() {
         Stock s1("A" + to_string(i + 1), randomCost, randomShares);
         insertFront(s1);
     }
+    Stock s2("B");
     cout << "The following is the complete list:" << endl;
+    insertLast(s2);
+    insertMiddle(s2);
     printList(head);
-    cout << endl << "The following is the first half:" << endl;
-    printList(splitHalfList(head));
-    cout << endl << "The following is the second half:" << endl;
-    printList(head);
+    //splitHalfList(head);
+
 
     return 0;
 }
