@@ -35,15 +35,18 @@ void insertFront(Stock stk){
 }
 
 Node* removeFront(){
+    // if the list is empty
     if (currentSize == 0){
         return NULL;
     }
     else {
-        // set the temp to head
+        // set the temp node to head
         Node* temp = head;
         // point the head to its next node
         head = head->next;
+        // reduce the size after removal
         currentSize--;
+        // if list becomes empty after removal
         if (head == NULL){
             tail = NULL;
         }
@@ -103,6 +106,10 @@ void insertMiddle(Stock stk){
     middle->next->prev = middle;
 }
 
+Node* removeMiddle(){
+
+}
+
 void insertLast(Stock stk){
     // create a new node
     Node* newNode = new Node;
@@ -123,6 +130,31 @@ void insertLast(Stock stk){
     // link the previous
     tail->prev = temp;
 }
+
+Node* removeLast(){
+    // if list is empty
+    if (currentSize == 0){
+        return NULL;
+    }
+    else if (currentSize == 1){
+        // set the temp node to head
+        Node* temp = head;
+        head = tail = NULL;
+        currentSize = 0;
+        return temp;
+    }
+    else { // currentSize > 1
+        Node* current = head;
+        for (int i = 0; i < currentSize - 2; ++i) {
+            current = current->next;
+        }
+        Node* temp = tail;
+        tail = current;
+        tail->next = NULL;
+        currentSize--;
+        return temp;
+        }
+    }
 
 void splitHalfList(Node* head){
 //    find middle
@@ -159,8 +191,8 @@ int main() {
     //insertLast(s2);
     //insertMiddle(s2);
     printList(head);
-    removeFront();
-    cout << "Front removed" << endl;
+    removeLast();
+    cout << "End removed" << endl;
     printList(head);
     //splitHalfList(head);
 
